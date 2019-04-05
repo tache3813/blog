@@ -5,6 +5,7 @@ from .models import Post, Category
 
 class IndexView(generic.ListView):
   model = Post
+  paginate_by = 5
 
   def get_queryset(self):
     queryset = Post.objects.order_by("-created_at")
@@ -18,6 +19,7 @@ class IndexView(generic.ListView):
 
 class CategoryView(generic.ListView):
   model = Post #カテゴリで絞り込んだ記事の一覧を取得する
+  paginate_by = 5
 
   def get_queryset(self):
     category = self.get_object_or_404(Category, pk=self.kwargs['pk'])
