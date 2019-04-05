@@ -6,7 +6,7 @@
     <h2 class="card-header bg-dark text-white">{{ post.title }}</h2>
     <div class="card-body">
       <p>{{ post.created_at }}, {{ post.category }}</p>
-      <a href="{% url 'myblog:detail' post.pk %}" class="btn btn-dark">続きを読む</a>
+      <a href="{% url 'myblog:detail' post.pk %}" class="btn btn-dark">Read more...</a>
     </div>
   </div>
 {% endfor %}
