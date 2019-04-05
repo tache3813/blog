@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    #myblogフォルダ内の、apps.pyファイル内の、MyblogConfigクラスを指定
     'myblog.apps.MyblogConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -59,6 +60,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'myblog.context_processors.common', #myblog下のcontext_processors.pyファイル内のcommon関数を読み込む
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
