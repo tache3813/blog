@@ -1,7 +1,8 @@
 from django.db.models import Q # OR検索
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.views import generic
-from .models import Post, Category
+from .models import Post, Category, Comment
+from .forms import CommentCreateForm
 
 class IndexView(generic.ListView):
   model = Post
@@ -22,10 +23,23 @@ class CategoryView(generic.ListView):
   paginate_by = 5
 
   def get_queryset(self):
-    category = self.get_object_or_404(Category, pk=self.kwargs['pk'])
-    queryset = Post.objects.order_by("-created_at").filter(category=category)
+    category_pk = self.kwargs['pk']
+    queryset = Post.objects.order_by("-created_at").filter(category_pk=category_pk)
     return queryset
 
 
 class DetailView(generic.DetailView):
   model = Post
+
+
+class CommentView(generic.CreateView):
+  model = Comment
+  form_class = CommentCreateForm
+
+  # formのvalidationチェックに成功したら呼び出す
+  def form_valid(self, form):
+    post_pk = self.kwargs['post_pk']
+    comment = form.save(commit=False) # まだコメントをDBに保存していない
+    comment.post = get_object_or_404(Post, pk=post_pk)
+    comment.save()
+    return redirect('myblog:detail', pk=post_pk)
