@@ -2,11 +2,15 @@
 
 {% block content %}
 {% for post in post_list %}
-  <div class="card mb-3">
-    <h2 class="card-header bg-dark text-white">{{ post.title }}</h2>
+  <div class="card mb-4">
+    <img class="card-img-top" src="http://placehold.it/750x200" alt="Card image cap">
     <div class="card-body">
-      <p>{{ post.created_at }}, {{ post.category }}</p>
+      <h2 class="card-title">{{ post.title }}</h2>
+      <p class="card-text">{{ post.outline}} ...</p>
       <a href="{% url 'myblog:detail' post.pk %}" class="btn btn-dark">Read more...</a>
+    </div>
+    <div class="card-footer text-muted">
+      <p>{{ post.created_at }}, {{ post.category }}</p>
     </div>
   </div>
 {% endfor %}

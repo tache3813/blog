@@ -17,11 +17,12 @@ class Post(models.Model):
   text = models.TextField('PostContent')
   created_at = models.DateTimeField('PublishedAt', default=timezone.now)
   category = models.ForeignKey(Category, verbose_name='PostCategory', on_delete=models.PROTECT)
-  #author = models.CharField('User.author', max_length=20)
 
   def __str__(self):
     return self.title
 
+  def outline(self):
+    return self.text[:100] #100文字目までを表示
 
 class Comment(models.Model):
   """記事のコメント"""

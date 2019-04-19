@@ -1,82 +1,72 @@
+{% load i18n static %}
 {% load sass_tags %}
 <!doctype html>
 <html lang="en-us">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+  <link rel="stylesheet" type="text/css" href="{% sass_src 'css/style.sass' %}">
+  {% block extracss %}{% endblock %}
 
-    {% block extracss %}{% endblock %}
+  <title>Tache's Blog</title>
+</head>
 
-    <title>Tache's Blog</title>
-  </head>
+<body>
+  <!-- nav bar -->
+  {% include 'myblog/widgets/nav.html' %}
 
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">title</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <!-- Page content -->
+  <div class="container">
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'myblog:index' %}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">About Me</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Contact</a>
-          </li>
-          {% if user.is_superuser %}
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
-            </li>
-          {% endif %}
+    <div class="row">
 
-        </ul>
-        <form class="form-inline my-2 my-lg-0" method="GET" action="{% url 'myblog:index' %}">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="keyword">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+      <!-- Blog Entries Column -->
+      <div class="col-md-8">
+        <h2 class="my-4">Page heading
+          <small>Secondary Text</small>
+        </h2>
+
+        <!-- Blog post -->
+        {% block content %}
+        {% endblock %}
+
       </div>
-    </nav>
 
-    <div class="jumbotron">
-      <h1 class="display-3">title</h1>
-      <p class="lead">text</p>
-      <hr class="my-2">
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+        <!-- Search Widget -->
+        {% include 'myblog/widgets/search.html' %}
+
+        <!-- Profile and links -->
+        {% include 'myblog/widgets/profile.html' %}
+
+        <!-- Categories Widget -->
+        {% include 'myblog/widgets/category.html' %}
+
+      </div>
+
     </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
 
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-4">
     <div class="container">
-      <div class="row">
-        <div class="col-md-8">
-          {% block content %}
-          {% endblock %}
-        </div>
-        <div class="col-md-4">
-          <ul class="list-group">
-            <li class="list-group-item bg-dark text-white">Categories</li>
-              {% for category in category_list %}
-                <li class="list-group-item"><a href="{% url 'myblog:category' category.pk %}">{{ category }}</a></li>
-              {% endfor %}
-          </ul>
-        </div>
-      </div>
+      <p class="m-0 text-center text-white">Copyright &copy; Tache's blog 2019 All Rights Reserved.</p>
     </div>
+  </footer>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+  {% block extrajs %}{% endblock %}
+</body>
 
-    <footer class="bg-dark text-white text-center py-3">
-
-    </footer>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    {% block extrajs %}{% endblock %}
-  </body>
 </html>

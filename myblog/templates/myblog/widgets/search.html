@@ -1,0 +1,12 @@
+<!-- search widget -->
+<div class="card my-4">
+  <h5 class="card-header">Search</h5>
+  <div class="card-body">
+    <div class="input-group">
+      <form class="form-inline my-2 my-lg-0" method="GET" action="{% url 'myblog:index' %}">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search for..." aria-label="Search" name="keyword">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Go</button>
+      </form>
+    </div>
+  </div>
+</div>
