@@ -4,7 +4,7 @@ register = template.Library()
 
 @register.simple_tag
 def url_replace(request, field, value):
-  """GETパラメータの置換"""
-  url_dict = request.GET.copy()
-  url_dict[field] = value
-  return url_dict.urlencode()
+    """GETパラメータの置換"""
+    url_dict = request.GET.copy()
+    url_dict[field] = value
+    return url_dict.urlencode()
