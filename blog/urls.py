@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #urls.pyのurlspatternlistにpathに対応した処理を参照する
     path('', include('myblog.urls')),
+    path('markdownx/', include('markdownx.urls')),
 ]
