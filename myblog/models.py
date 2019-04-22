@@ -1,5 +1,10 @@
 from django.db import models
 from django.utils import timezone
+from markdownx.models import MarkdownxField
+from markdownx.utils import markdownify
+
+SITE_NAME = "Your Site Name"
+AUTHOR_PROFILE = "Your Profile"
 
 
 class Category(models.Model):
@@ -14,15 +19,18 @@ class Category(models.Model):
 class Post(models.Model):
   """blogの記事"""
   title = models.CharField('PostTitle', max_length=255)
-  text = models.TextField('PostContent')
+  text = MarkdownxField('PostContent', help_text='Writing in Markdown')
   created_at = models.DateTimeField('PublishedAt', default=timezone.now)
   category = models.ForeignKey(Category, verbose_name='PostCategory', on_delete=models.PROTECT)
+  outline = models.TextField('Outline', blank=True)
+  is_public = models.BooleanField('is Public?', default=True)
 
   def __str__(self):
     return self.title
 
-  def outline(self):
-    return self.text[:100] #100文字目までを表示
+  def text_to_markdown(self):
+    return markdownify(self.text)
+
 
 class Comment(models.Model):
   """記事のコメント"""
@@ -32,4 +40,5 @@ class Comment(models.Model):
   created_at = models.DateTimeField('PostedAt', default=timezone.now)
 
   def __str__(self):
-    return self.text[:10] #10文字目までを表示する
+    return self.text[:10]
+
