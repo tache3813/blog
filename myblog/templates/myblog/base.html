@@ -12,7 +12,7 @@
   <link rel="stylesheet" type="text/css" href="{% sass_src 'css/style.sass' %}">
   {% block extracss %}{% endblock %}
 
-  <title>Tache's Blog</title>
+  <title>{{ mysite.site_name }}</title>
 </head>
 
 <body>
@@ -26,9 +26,10 @@
 
       <!-- Blog Entries Column -->
       <div class="col-md-8">
-        <h2 class="my-4">Page heading
-          <small>Secondary Text</small>
-        </h2>
+        <!-- Blog heading  -->
+        <h5 class="my-4">{{ mysite.page_heading }}
+          <small class="text-muted">{{ mysite.page_description }}</small>
+        </h5>
 
         <!-- Blog post -->
         {% block content %}
