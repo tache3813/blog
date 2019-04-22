@@ -9,7 +9,7 @@ class IndexView(generic.ListView):
   paginate_by = 5
 
   def get_queryset(self):
-    queryset = Post.objects.order_by("-created_at")
+    queryset = Post.objects.filter(is_public=True).order_by("-created_at")
     keyword = self.request.GET.get('keyword') #検索フォームの入力内容を取得
     if keyword:
       queryset = queryset.filter(
