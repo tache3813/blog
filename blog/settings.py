@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',         #add
     'myblog.apps.MyblogConfig',     #add
     'sass_processor',               #add
     'markdownx'                     #add
@@ -118,6 +119,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Enabling the sites framework
+SITE_ID = 1
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
@@ -134,3 +138,21 @@ SASS_PROCESSOR_INCLUDE_FILE_PATTERN = r'^.+\.scss$'
 SASS_PRECISION = 8
 SASS_OUTPUT_STYLE = 'compact'
 SASS_TEMPLATE_EXTS = ['.html', '.haml']
+
+# django-markdownx
+MARKDOWNX_MARKDOWN_EXTENSIONS = [
+    'markdown.extensions.extra', # including Fenced Code Blocks
+    'markdown.extensions.toc',
+]
+
+# django-heroku
+DEBUG = False
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
+
+if not DEBUG:
+    import django_heroku
+    django_heroku.settings(locals())

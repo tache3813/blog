@@ -1,11 +1,14 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.sites.models import Site
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
 
-SITE_NAME = "Your Site Name"
-AUTHOR_PROFILE = "Your Profile"
-
+SITE_NAME = "Site Name"
+PAGE_HEADING = "Page Heading"
+PAGE_DESCRIPTION = "Page Description"
+AUTHOR_NAME = "Author Name"
+AUTHOR_PROFILE = "Author Profile"
 
 class Category(models.Model):
   """記事のカテゴリ"""
@@ -42,3 +45,17 @@ class Comment(models.Model):
   def __str__(self):
     return self.text[:10]
 
+
+class Description(models.Model):
+  """サイトの詳細情報"""
+  site = models.OneToOneField(Site, verbose_name='Site', on_delete=models.PROTECT)
+  site_name = models.CharField('SiteName', max_length=255, default=SITE_NAME)
+  page_heading = models.TextField('PageHeading', max_length=255, default=PAGE_HEADING)
+  page_description = models.TextField('PageDescription', max_length=255, default=PAGE_DESCRIPTION)
+  author_profile = MarkdownxField('AuthorProfile', default=AUTHOR_PROFILE)
+
+  def __str__(self):
+    return self.site_name
+
+  def text_to_markdown(self):
+    return markdownify(self.author_profile)
