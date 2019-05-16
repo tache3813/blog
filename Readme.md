@@ -5,4 +5,4 @@ Tache's Blog is an open source blog built with django framework
 ## version
 python - 3.7.0
 
-django - 2.1.5
+django - 2.2.1
