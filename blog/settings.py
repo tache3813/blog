@@ -134,8 +134,6 @@ STATICFILES_DIRS = (
         os.path.join(BASE_DIR, 'static'),
 )
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 # Sass/SCSS
 SASS_PROCESSOR_AUTO_INCLUDE = False
 SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR, 'static')
